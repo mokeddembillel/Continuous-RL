@@ -7,3 +7,4 @@ Algorithms/SAC/tmp/sac/optimal_P.npy
 Algorithms/SAC/tmp/sac/critic_2_sac
 Algorithms/SAC/tmp/sac/critic_1_sac
 Algorithms/SAC/tmp/sac/actor_sac
+*.png
