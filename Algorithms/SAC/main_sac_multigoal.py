@@ -1,7 +1,9 @@
+import os
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+
 # pybullet_envs
 import gym
 import numpy as np
-import pybulletgym
 from sac_torch import Agent
 from utils import plot_learning_curve
 from gym import wrappers
@@ -107,8 +109,8 @@ if __name__ == '__main__':
         
         if avg_score > best_score:
             best_score = avg_score
-            # if not load_checkpoint:
-            #     agent.save_models()
+            if not load_checkpoint:
+                agent.save_models()
         print('episode ', i, 'score %.1f' % score, 'avg_score %.1f' % avg_score)
         
         plot(agent)
