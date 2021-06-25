@@ -1,7 +1,7 @@
 # pybullet_envs
 import gym
 import numpy as np
-import pybulletgym
+#import pybulletgym
 from sac_torch import Agent
 from gym import wrappers
 import math
@@ -11,11 +11,11 @@ import gym_lqr
 if __name__ == '__main__':
     #env = gym.make('gym_lqr:lqr-stochastic-v0')
     #env = gym.make('gym_lqr:lqr-2d-v0')
-    #env = gym.make('gym_lqr:lqr-v0')
+    env = gym.make('gym_lqr:lqr-v0')
     #env = gym.make('InvertedPendulumPyBulletEnv-v0')
     #env = gym.make('InvertedPendulum-v2')
     #env = gym.make('Walker2DPyBulletEnv-v0')
-    env = gym.make('Ant-v2')
+    #env = gym.make('Ant-v2')
     #print(env.action_space.shape[0])
     agent = Agent(input_dims=env.observation_space.shape, env=env,
             n_actions=env.action_space.shape[0])
@@ -50,8 +50,9 @@ if __name__ == '__main__':
             #env.render()
             #print('state: ', np.squeeze(observation))
             action = agent.choose_action(observation)
-            #print('ac: ', np.squeeze(action))
             observation_, reward, done, info = env.step(action)
+
+            #print('ac: ', np.squeeze(action))
             #print('re:', reward)
             #print('Q: ', np.squeeze(env.get_Q()))
             score += reward

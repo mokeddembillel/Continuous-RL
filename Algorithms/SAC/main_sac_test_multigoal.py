@@ -1,3 +1,6 @@
+import os
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+
 import gym
 import numpy as np
 from sac_torch import Agent
@@ -6,7 +9,6 @@ from gym import wrappers
 import math
 import torch as T
 from networks import ActorNetwork, CriticNetwork
-import gym_lqr
 from multigoal import MultiGoalEnv
 
 
@@ -19,7 +21,7 @@ def plot(actor):
     n_games = 50
     max_episode_length = 30
     for i in range(n_games):
-        observation = env.reset(init_state=[6, -6])
+        observation = env.reset(init_state=[-3, 0])
         episode_length = 0
         done = False
         score = 0
@@ -50,9 +52,9 @@ if __name__ == '__main__':
     #env = gym.make('InvertedPendulumPyBulletEnv-v0')
     #env = gym.make('gym_lqr:lqr-stochastic-v0')
     #env = gym.make('gym_lqr:lqr-v0')
-    env = gym.make('gym_lqr:lqr-2d-v0')
+    #env = gym.make('gym_lqr:lqr-2d-v0')
     #env = gym.make('InvertedPendulum-v2')
-
+    env = MultiGoalEnv()
     #print(env.action_space.shape[0])
     actor = ActorNetwork(0.0003, input_dims=env.observation_space.shape, \
                          n_actions=env.action_space.shape[0], max_action=env.action_space.high)
@@ -65,9 +67,6 @@ if __name__ == '__main__':
     ActorNetwork.load_checkpoint(actor)
     critic_1.load_checkpoint()
     critic_2.load_checkpoint()
-    
-    # Load optimal P
-    env.set_P(np.load('tmp/sac/optimal_P.npy'))
     
     
     plot(actor)
