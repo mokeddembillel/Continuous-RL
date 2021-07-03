@@ -17,7 +17,7 @@ np.random.seed(0)
 
 score_history = []
 for i in range(1000):
-    obs = env.reset()
+    obs = env.reset(init_x=[100], max_steps=200)
     done = False
     score = 0
     while not done:
