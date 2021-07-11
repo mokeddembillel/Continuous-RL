@@ -8,3 +8,30 @@ Algorithms/SAC/tmp/sac/critic_2_sac
 Algorithms/SAC/tmp/sac/critic_1_sac
 Algorithms/SAC/tmp/sac/actor_sac
 *.png
+Algorithms/DDPG/tmp/ddpg/Actor_ddpg
+Algorithms/DDPG/tmp/ddpg/Critic_ddpg
+Algorithms/DDPG/tmp/ddpg/score_history.npy
+Algorithms/DDPG/tmp/ddpg/steps_history.npy
+Algorithms/DDPG/tmp/ddpg/TargetActor_ddpg
+Algorithms/DDPG/tmp/ddpg/TargetCritic_ddpg
+Algorithms/SAC/tmp/sac - Copy/critic_1_sac
+Algorithms/SAC/tmp/sac - Copy/actor_sac
+Algorithms/SAC/tmp/sac - Copy/critic_2_sac
+Algorithms/SAC/tmp/sac - Copy/optimal_P.npy
+Algorithms/SAC/tmp/sac - Copy/score_history.npy
+Algorithms/SAC/tmp/sac - Copy/steps_history.npy
+Algorithms/SAC/tmp/sac - Copy/target_value_sac
+Algorithms/SAC/tmp/sac - Copy/value_sac
+Algorithms/SAC/tmp/sac/score_history.npy
+Algorithms/SAC/tmp/sac/steps_history.npy
+Algorithms/svgd/core.py
+Algorithms/svgd/svgd.py
+Algorithms/TD3/tmp/td3/actor_td3
+Algorithms/TD3/tmp/td3/critic_1_td3
+Algorithms/TD3/tmp/td3/critic_2_td3
+Algorithms/TD3/tmp/td3/score_history.npy
+Algorithms/TD3/tmp/td3/steps_history.npy
+Algorithms/TD3/tmp/td3/target_actor_td3
+Algorithms/TD3/tmp/td3/target_critic_1_td3
+Algorithms/TD3/tmp/td3/target_critic_2_td3
+Algorithms/TD3/tmp/td3/test.py

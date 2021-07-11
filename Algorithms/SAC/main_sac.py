@@ -1,7 +1,7 @@
 # pybullet_envs
 import gym
 import numpy as np
-#import pybulletgym
+import pybulletgym
 from sac_torch import Agent
 from gym import wrappers
 import math
@@ -14,7 +14,7 @@ if __name__ == '__main__':
     env = gym.make('gym_lqr:lqr-v0')
     #env = gym.make('InvertedPendulumPyBulletEnv-v0')
     #env = gym.make('InvertedPendulum-v2')
-    #env = gym.make('Walker2DPyBulletEnv-v0')
+    # env = gym.make('Walker2DPyBulletEnv-v0')
     #env = gym.make('Ant-v2')
     #print(env.action_space.shape[0])
     agent = Agent(input_dims=env.observation_space.shape, env=env,
@@ -31,6 +31,7 @@ if __name__ == '__main__':
     
     best_score = env.reward_range[0]
     score_history = []
+    steps_history = []
     load_checkpoint = False
 
     if load_checkpoint:
@@ -41,38 +42,44 @@ if __name__ == '__main__':
         
         #observation = env.reset(init_x=np.array([7., 7., 5.]), max_steps=200)
         #observation = env.reset(init_x=np.array([100, 100]), max_steps=200)
-        observation = env.reset()
+        #init_x = np.array([np.random.choice(np.array([-100, 100]))])
+        init_x = np.random.uniform(low=-100, high=100, size=(1,))
+        observation = env.reset(init_x=init_x, max_steps=15)
+        #observation = env.reset()
 
         #print(observation)
         done = False
         score = 0
+        steps = 0
         while not done:
             #env.render()
-            #print('state: ', np.squeeze(observation))
             action = agent.choose_action(observation)
             observation_, reward, done, info = env.step(action)
-
-            #print('ac: ', np.squeeze(action))
-            #print('re:', reward)
+            # print('state: ', np.squeeze(observation))
+            # print('ac: ', np.squeeze(action))
+            # print('re:', reward)
             #print('Q: ', np.squeeze(env.get_Q()))
             score += reward
+            steps += 1
             agent.remember(observation, action, reward, observation_, done)
             if not load_checkpoint:
                 agent.learn()
             observation = observation_
-        score = score
         score_history.append(score)
+        #steps_history.append(steps)
+        np.save('tmp/sac/score_history', np.array(score_history))
+        #np.save('tmp/sac/steps_history', np.array(steps_history))
         avg_score = np.mean(score_history[-20:])
         
         if avg_score > best_score:
             best_score = avg_score
             if not load_checkpoint:
                 agent.save_models()
-                #print('P: ', env.get_P())
-                #np.save('tmp/sac/optimal_P', env.get_P())
+                print('P: ', env.get_P())
+                np.save('tmp/sac/optimal_P', env.get_P())
                 
-                
-        print('episode ', i, 'score %.1f' % score, 'avg_score %.1f' % avg_score)
+        
+        print('episode ', i, 'score %.1f' % score, 'avg_score %.1f' % avg_score, 'init state %.1f' % np.squeeze(init_x))
     env.close()        
     # if not load_checkpoint:
     #     x = [i+1 for i in range(n_games)]
