@@ -12,7 +12,7 @@ from networks import ActorNetwork, CriticNetwork
 
 
 class Agent():
-    def __init__(self, alpha, beta, input_dims, tau, env,
+    def __init__(self, alpha, beta, input_dims, tau, env, action_bound, 
             gamma=0.99, update_actor_interval=2, warmup=1000,
             n_actions=2, max_size=1000000, layer1_size=400,
             layer2_size=300, batch_size=100, noise=0.1):
@@ -27,7 +27,7 @@ class Agent():
         self.warmup = warmup
         self.n_actions = n_actions
         self.update_actor_iter = update_actor_interval
-
+        self.action_bound  = action_bound
         self.actor = ActorNetwork(alpha, input_dims, layer1_size,
                         layer2_size, n_actions=n_actions, name='actor')
 
@@ -59,7 +59,7 @@ class Agent():
         mu_prime = T.clamp(mu_prime, self.min_action[0], self.max_action[0])
         self.time_step += 1
 
-        return mu_prime.cpu().detach().numpy()
+        return (mu_prime  * T.tensor(self.action_bound)).cpu().detach().numpy()
 
     def remember(self, state, action, reward, new_state, done):
         self.memory.store_transition(state, action, reward, new_state, done)
