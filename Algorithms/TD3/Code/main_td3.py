@@ -6,7 +6,6 @@ from gym import wrappers
 
 
 #del gym.registry.env_specs['gym_lqr:lqr-v0']
-import gym_lqr
 
 #env = gym.make('gym_lqr:lqr-stochastic-v0')
 #env = gym.make('gym_lqr:lqr-2d-v0')
@@ -33,6 +32,7 @@ if __name__ == '__main__':
     #agent.load_models()
 
     for i in range(n_games):
+        env.render()
         observation = env.reset()
         #observation = env.reset(init_x=np.array([100]), max_steps=200)
         done = False
